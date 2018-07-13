@@ -1,0 +1,18 @@
+resources:
+  - name: project_gitRepo
+    type: gitRepo
+    integration: github
+    versionTemplate:
+      - sourceName: skylark05/project
+        buildOnPullRequest: true
+        
+jobs:
+  - name: project_build_prepare
+    type: runSh
+    steps:
+      - IN: project_gitRepo
+      - TASK:
+          script:
+            - echo "Preparing your build..."
+      - OUT: project_ciRepo
+        replicate: project_gitRepo
